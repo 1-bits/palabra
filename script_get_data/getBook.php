@@ -13,10 +13,10 @@ try{
         array_push($result, $r->id,$r->nombre);
     }
     }catch(Exception $e){
-
+        die("error en el SQL :".$e);
     } 
 
     var_dump( $result);
-    $consulta = new Verso("mateo","LBLA","+1:1");
+    $consulta = new Verso("mateo","LBLA","+1:26");
     $texto=$consulta->_getResource();
     var_dump($texto);
