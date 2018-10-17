@@ -1,6 +1,6 @@
 <?php
 include('versos.php');
 
-$consulta = new Verso("mateo","+1:1","LBLA");
-$consulta->queryDoc() ; // Rnc valido Test OK
-//echo $consulta->queryDoc(); // cedul
+$consulta = new Verso("Éxodo","DHH","+8:29");
+$texto=$consulta->_getResource(); // Rnc valido Test OK
+echo $texto; // cedul

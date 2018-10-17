@@ -29,8 +29,10 @@ class Verso{
 		curl_setopt($c, CURLOPT_PROXY, "http://acapsrv02d");
 		curl_setopt($c, CURLOPT_PROXYPORT,"3128"); 
 		curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($c,CURLOPT_FRESH_CONNECT, true);
+		curl_setopt($c,CURLOPT_HEADER, true);
+		curl_setopt($c,CURLOPT_HTTPGET, true);
 		$html = curl_exec($c);
-
 		if (curl_error($c))
 			die(curl_error($c));
 		$status = curl_getinfo($c, CURLINFO_HTTP_CODE);
@@ -42,14 +44,44 @@ class Verso{
 		$internalErrors = libxml_use_internal_errors(true);
 		// load HTML
 		$dom->loadHTML($html);
+		$html="";
 		// Restore error level
 		libxml_use_internal_errors($internalErrors);
 		$xpath = new DomXpath($dom);
+		$string = array();
 		$tr = $xpath->query('//div[@class="passage-text"]//p//span')->item(0);
-		foreach ($tr->childNodes as $node) {
-			$string[] = $node->nodeValue;
+		if(is_object($tr)){
+			foreach ($tr->childNodes as $node) {
+				$string[] = $node->nodeValue;
+			}
+		}
+
+		$tr = $xpath->query('//div[@class="passage-text"]//p//span')->item(1);
+		if(is_object($tr)){
+			$string[] = "
+			";
+			foreach ($tr->childNodes as $node) {
+				$string[] = $node->nodeValue;
+			}
+		}
+		$tr = $xpath->query('//div[@class="passage-text"]//p//span')->item(2);
+		if(is_object($tr)){
+			$string[] = "
+			";
+			foreach ($tr->childNodes as $node) {
+				$string[] = $node->nodeValue;
+			}
+		}
+		
+		$tr = $xpath->query('//div[@class="passage-text"]//p//span')->item(3);
+		if(is_object($tr)){
+			$string[] = "
+		";
+			foreach ($tr->childNodes as $node) {
+				$string[] = $node->nodeValue;
+			}
 		}
 		$texto=implode("",$string);
-	  	return preg_replace('/[0-9]+/', '', $texto);
+	  	return  preg_replace('/[0-9]+/', '', $texto);
 	}
 }
