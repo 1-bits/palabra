@@ -1,10 +1,12 @@
 package server
+
 import (
-	"github.com/labstack/echo"
 	"github.com/1bits.org/palabra/controladores"
+	"github.com/labstack/echo"
 )
+
 func Router(e *echo.Group) {
-	e.GET("/v1/hola",controladores.Hola )
-	e.GET("/v1/id/:id",controladores.Presentarme)
-	e.GET("/v1/verso/:id", controladores.Retornarid)
+	e.POST("/v1/versiculo/", controladores.Versiculo)
+	e.GET("/v1/versiculo/", controladores.Informacionversiculo)
+	//	e.POST("/v1/capitulo/", controladores.Retornarid)
 }

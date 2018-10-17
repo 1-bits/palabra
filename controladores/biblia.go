@@ -1,32 +1,37 @@
 package controladores
 
 import (
-	"github.com/labstack/echo"
-	"fmt"
-	"database/sql"
 	"net/http"
+	"strconv"
+
+	"github.com/1bits.org/palabra/modelo"
+
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/labstack/echo"
 )
 
 // prueba de conexion
-func Retornarid(c echo.Context) error {
-	requested_id := c.Param("id")
-	fmt.Println(requested_id);
-	db, err := sql.Open("mysql", "analistas:analistas@tcp(acapdes01d.asociacioncibao.com.do:3306)/go_prueba")
+func Versiculo(c echo.Context) error {
+	versionstr := c.FormValue("version")
+	version, err := strconv.Atoi(versionstr)
 	if err != nil {
-		fmt.Println(err.Error())
-		response := Excuse{Id: "", Error: "conection error ", Quote: ""}
-		return c.JSON(http.StatusInternalServerError, response)
+		// handle error
 	}
-	defer db.Close()
-	var quote string;
-	var id string;
-	err = db.QueryRow("SELECT id, quote FROM excuses WHERE id = ?", requested_id).Scan(&id, &quote)
+	librostr := c.FormValue("libro")
+	libro, err := strconv.Atoi(librostr)
 	if err != nil {
-		fmt.Println(err)
+		// handle error
 	}
-
-	libro := Libros{Name:id+quote, Email:quote}
-	response := Excuse{Id: id, Error: "null", Quote: quote,Libro:libro}
-	return c.JSON(http.StatusOK, response)
+	capitulostr := c.FormValue("capitulo")
+	capitulo, err := strconv.Atoi(capitulostr)
+	if err != nil {
+		// handle error
+	}
+	versostr := c.FormValue("verso")
+	verso, err := strconv.Atoi(versostr)
+	if err != nil {
+		// handle error
+	}
+	result := modelo.GetVersiculo(version, libro, capitulo, verso)
+	return c.JSON(http.StatusOK, result)
 }
