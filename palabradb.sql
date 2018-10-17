@@ -3,33 +3,34 @@ CREATE DATABASE palabradb;
 USE palabradb;
 
 CREATE TABLE `version` (
-  `id` int(3) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `id` int(3) NOT NULL AUTO_INCREMENT,
   `version` text NOT NULL,
   `descripcion` text NOT NULL,
   `idioma` text NOT NULL,
   PRIMARY KEY (`id`)
 );
-insert into version(id,version,descripcion,idioma)  value(1,'DHH','Dios Habla Hoy (DHH)','');
-insert into version(id,version,descripcion,idioma)  value(2,'JBS','Jubilee Bible 2000 (Spanish) (JBS)','');
-insert into version(id,version,descripcion,idioma)  value(3,'NBLHN','Nueva Biblia Latinoamericana de Hoy (NBLH)','');
-insert into version(id,version,descripcion,idioma)  value(4,'NBV','Nueva Biblia Viva (NBV)','');
-insert into version(id,version,descripcion,idioma)  value(5,'NTV','Nueva Traducción Viviente (NTV)','');
-insert into version(id,version,descripcion,idioma)  value(6,'NVI','Nueva Versión Internacional (NVI)','');
-insert into version(id,version,descripcion,idioma)  value(7,'CST','Nueva Versión Internacional (Castilian) (CST)','');
-insert into version(id,version,descripcion,idioma)  value(8,'PDT','Palabra de Dios para Todos (PDT)','');
-insert into version(id,version,descripcion,idioma)  value(9,'BLP','La Palabra (España) (BLP)','');
-insert into version(id,version,descripcion,idioma)  value(10,'BLPH','La Palabra (Hispanoamérica) (BLPH)','');
-insert into version(id,version,descripcion,idioma)  value(11,'RVA-2015','Reina Valera Actualizada (RVA-2015)','');
-insert into version(id,version,descripcion,idioma)  value(12,'RVC','Reina Valera Contemporánea (RVC)','');
-insert into version(id,version,descripcion,idioma)  value(13,'RVR1960','Reina-Valera 1960 (RVR1960)','');
-insert into version(id,version,descripcion,idioma)  value(14,'RVR1977','Reina Valera Revisada (RVR1977)','');
-insert into version(id,version,descripcion,idioma)  value(15,'RVR1995','Reina-Valera 1995 (RVR1995)','');
-insert into version(id,version,descripcion,idioma)  value(16,'RVA','Reina-Valera Antigua (RVA)','');
-insert into version(id,version,descripcion,idioma)  value(17,'SRV-BRG','Spanish Blue Red and Gold Letter Edition (SRV-BRG)','');
-insert into version(id,version,descripcion,idioma)  value(18,'TLA','Traducción en lenguaje actual (TLA)','');
+insert into version(id,version,descripcion,idioma)  value(1,'RVR1960','Reina-Valera 1960 (RVR1960)','');
+insert into version(id,version,descripcion,idioma)  value(2,'LBLA','La Biblia de las Américas (LBLA)','');
+insert into version(id,version,descripcion,idioma)  value(3,'NVI','Nueva Versión Internacional (NVI)','');
+insert into version(id,version,descripcion,idioma)  value(4,'DHH','Dios Habla Hoy (DHH)','');
+insert into version(id,version,descripcion,idioma)  value(5,'JBS','Jubilee Bible 2000 (Spanish) (JBS)','');
+insert into version(id,version,descripcion,idioma)  value(6,'NBLHN','Nueva Biblia Latinoamericana de Hoy (NBLH)','');
+insert into version(id,version,descripcion,idioma)  value(7,'NBV','Nueva Biblia Viva (NBV)','');
+insert into version(id,version,descripcion,idioma)  value(8,'NTV','Nueva Traducción Viviente (NTV)','');
+insert into version(id,version,descripcion,idioma)  value(9,'CST','Nueva Versión Internacional (Castilian) (CST)','');
+insert into version(id,version,descripcion,idioma)  value(10,'PDT','Palabra de Dios para Todos (PDT)','');
+insert into version(id,version,descripcion,idioma)  value(11,'BLP','La Palabra (España) (BLP)','');
+insert into version(id,version,descripcion,idioma)  value(12,'BLPH','La Palabra (Hispanoamérica) (BLPH)','');
+insert into version(id,version,descripcion,idioma)  value(13,'RVA-2015','Reina Valera Actualizada (RVA-2015)','');
+insert into version(id,version,descripcion,idioma)  value(14,'RVC','Reina Valera Contemporánea (RVC)','');
+insert into version(id,version,descripcion,idioma)  value(15,'RVR1977','Reina Valera Revisada (RVR1977)','');
+insert into version(id,version,descripcion,idioma)  value(16,'RVR1995','Reina-Valera 1995 (RVR1995)','');
+insert into version(id,version,descripcion,idioma)  value(17,'RVA','Reina-Valera Antigua (RVA)','');
+insert into version(id,version,descripcion,idioma)  value(18,'SRV-BRG','Spanish Blue Red and Gold Letter Edition (SRV-BRG)','');
+insert into version(id,version,descripcion,idioma)  value(19,'TLA','Traducción en lenguaje actual (TLA)','');
 
 CREATE TABLE `libros` (
-  `id` int(11) UNSIGNED NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
  PRIMARY KEY (`id`)
 );
@@ -101,11 +102,11 @@ insert into libros(id,nombre)  value(65,'Judas');
 insert into libros(id,nombre)  value(66,'Apocalipsis');
 
 CREATE TABLE `versos` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `version` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
-  `libro` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
-  `capitulo` varchar(1) COLLATE latin1_spanish_ci NOT NULL,
-  `verso` varchar(45) COLLATE latin1_spanish_ci NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `version` int(11) UNSIGNED NOT NULL,
+  `libro` int(11) UNSIGNED NOT NULL,
+  `capitulo` int(11) UNSIGNED NOT NULL,
+  `versiculo` int(11) UNSIGNED NOT NULL,
   `texto` text NOT NULL,
   PRIMARY KEY (`id`)
 );
