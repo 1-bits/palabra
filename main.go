@@ -14,6 +14,6 @@ func main() {
 		AllowOrigins: []string{"*"},
 		AllowMethods: []string{echo.GET, echo.PUT, echo.POST, echo.DELETE},
 	}))
-	server.Router(e.Group(""))
+	server.Router(e.Group("/"))
 	e.Logger.Fatal(e.Start(":80"))
 }
