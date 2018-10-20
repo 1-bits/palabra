@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/1bits.org/palabra/modelo"
+	"github.com/1-bits/palabra/modelo"
 	"github.com/labstack/echo"
 )
 

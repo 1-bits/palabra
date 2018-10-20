@@ -1,7 +1,7 @@
 package server
 
 import (
-	"github.com/1bits.org/palabra/controladores"
+	"github.com/1-bits/palabra/controladores"
 	"github.com/labstack/echo"
 )
 

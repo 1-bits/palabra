@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/1bits.org/palabra/server"
+	"github.com/1-bits/palabra/server"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 )

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/1bits.org/palabra/db"
+	"github.com/1-bits/palabra/db"
 	_ "github.com/go-sql-driver/mysql"
 )
 
