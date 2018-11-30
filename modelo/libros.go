@@ -13,13 +13,13 @@ type Libros struct {
 	Nombre string `json: "nombre" form:"nombre" query:"nombre"`
 }
 
-type Libross struct {
+type ListaLibros struct {
 	Lista []Libros `json: "Libros" form:"Libros" query:"Libros"`
 }
 
 //)
-func (l *Libros) GetNombreLibro() Libross {
-	lis := new(Libross)
+func (l *Libros) GetNombreLibro() ListaLibros {
+	lis := new(ListaLibros)
 	con := db.CreateCon()
 	err := con.QueryRow("SELECT nombre FROM libros where id=? ", l.Id).Scan(&l.Nombre)
 	if err != nil {
@@ -30,10 +30,31 @@ func (l *Libros) GetNombreLibro() Libross {
 }
 
 //
-func (l *Libros) BuscarIdNombre() Libross {
-	lis := new(Libross)
+func (l *Libros) BuscarIdNombre() ListaLibros {
+	lis := new(ListaLibros)
 	con := db.CreateCon()
 	rows, err := con.Query("SELECT id, nombre FROM libros where UPPER(nombre) like ? ", strings.ToUpper(fmt.Sprint("%", l.Nombre, "%")))
+	defer rows.Close()
+	for rows.Next() {
+		Libros := Libros{}
+		err = rows.Scan(&Libros.Id, &Libros.Nombre)
+		if err != nil {
+			panic(err)
+		}
+		lis.Lista = append(lis.Lista, Libros)
+	}
+	err = rows.Err()
+	if err != nil {
+		panic(err)
+	}
+	return *lis
+}
+
+//
+func (l *ListaLibros) GetTodosLosLibros() ListaLibros {
+	lis := new(ListaLibros)
+	con := db.CreateCon()
+	rows, err := con.Query("SELECT id,nombre FROM libros")
 	defer rows.Close()
 	for rows.Next() {
 		Libros := Libros{}
