@@ -23,6 +23,6 @@ func (v *Versiculo) GetVersiculo() {
 	con := db.CreateCon()
 	err := con.QueryRow("SELECT Texto FROM Versos where Version=? and Libro=? and Capitulo=? and Verso=? ", v.Version, v.Libro, v.Capitulo, v.Verso).Scan(&v.Texto)
 	if err != nil {
-		v.Texto = "Lo sentimos este texto no existe "
+		v.Texto = "Lo sentimos este texto no existe"
 	}
 }

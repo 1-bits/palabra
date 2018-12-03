@@ -9,10 +9,22 @@ import (
 
 //get todos los libros
 func GetListacapitulos(c echo.Context) (err error) {
-	v := new(modelo.Capitulo)
+	cap := new(modelo.Capitulo)
+	if err = c.Bind(cap); err != nil {
+		return c.JSON(http.StatusOK, "ERROR parametros")
+	}
+	cap.GetCountCapitulo()
+	return c.JSON(http.StatusOK, cap)
+}
+
+//get todos los libros
+func Getcapitulos(c echo.Context) (err error) {
+	v := new(modelo.Versiculo)
 	if err = c.Bind(v); err != nil {
 		return c.JSON(http.StatusOK, "ERROR parametros")
 	}
-	v.GetCapitulo()
-	return c.JSON(http.StatusOK, v)
+	resultado := new(modelo.ListaCapitulos)
+	//
+	return c.JSON(http.StatusOK, resultado.GetCapitulo(v))
+
 }
