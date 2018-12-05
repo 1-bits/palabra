@@ -25,6 +25,6 @@ func Getcapitulos(c echo.Context) (err error) {
 	}
 	resultado := new(modelo.ListaCapitulos)
 	//
-	return c.JSON(http.StatusOK, resultado.GetCapitulo(v))
+	return c.JSON(http.StatusOK, resultado.GetCapitulo(*v))
 
 }

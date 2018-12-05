@@ -9,6 +9,7 @@ import (
 
 func CreateCon() *sql.DB {
 	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/palabradb")
+
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -17,5 +18,7 @@ func CreateCon() *sql.DB {
 		fmt.Println("db is not connected")
 		fmt.Println(err.Error())
 	}
+	db.SetMaxIdleConns(1000)
+	db.SetMaxOpenConns(1500)
 	return db
 }

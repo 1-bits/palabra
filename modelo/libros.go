@@ -17,13 +17,14 @@ type ListaLibros struct {
 	Lista []Libros `json: "Libros" form:"Libros" query:"Libros"`
 }
 
-//)
+//
 func (l *Libros) GetNombreLibro() ListaLibros {
 	lis := new(ListaLibros)
 	con := db.CreateCon()
 	err := con.QueryRow("SELECT nombre FROM libros where id=? ", l.Id).Scan(&l.Nombre)
+	defer con.Close()
 	if err != nil {
-		//&v.Texto = "Lo sentimos este texto no existe "
+		panic(err)
 	}
 	lis.Lista = append(lis.Lista, *l)
 	return *lis
@@ -35,6 +36,7 @@ func (l *Libros) BuscarIdNombre() ListaLibros {
 	con := db.CreateCon()
 	rows, err := con.Query("SELECT id, nombre FROM libros where UPPER(nombre) like ? ", strings.ToUpper(fmt.Sprint("%", l.Nombre, "%")))
 	defer rows.Close()
+	defer con.Close()
 	for rows.Next() {
 		Libros := Libros{}
 		err = rows.Scan(&Libros.Id, &Libros.Nombre)
@@ -56,17 +58,20 @@ func (l *ListaLibros) GetTodosLosLibros() ListaLibros {
 	con := db.CreateCon()
 	rows, err := con.Query("SELECT id,nombre FROM libros")
 	defer rows.Close()
+	defer con.Close()
 	for rows.Next() {
 		Libros := Libros{}
 		err = rows.Scan(&Libros.Id, &Libros.Nombre)
 		if err != nil {
 			panic(err)
+
 		}
 		lis.Lista = append(lis.Lista, Libros)
 	}
 	err = rows.Err()
 	if err != nil {
 		panic(err)
+
 	}
 	return *lis
 }
